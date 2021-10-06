@@ -5,7 +5,10 @@
   "author": "Christian Cantarino <christian.cantarino@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/shared/http/index.ts"
+    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/shared/http/server.ts",
+    "serve": "node build/shared/http/server.js",
+    "build": "tsc",
+    "watch": "tsc -w"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
