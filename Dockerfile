@@ -8,6 +8,7 @@ WORKDIR /app
 # where available (npm@5+)
 COPY package*.json ./
 COPY tsconfig*.json ./
+COPY ormconfig*.json ./
 
 RUN yarn
 # If you are building your code for production
