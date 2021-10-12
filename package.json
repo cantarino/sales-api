@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/http/server.ts",
     "serve": "node build/shared/http/server.js",
-    "build": "tsc",
+    "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./build",
     "watch": "tsc -w",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
@@ -17,6 +17,7 @@
     "@types/node": "^16.10.3",
     "ts-node-dev": "^1.1.8",
     "tsconfig-paths": "^3.11.0",
+    "tscpaths": "^0.0.9",
     "typescript": "^4.4.3"
   },
   "dependencies": {
