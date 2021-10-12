@@ -1,4 +1,4 @@
-import * as idParamValidator from "@shared/http/validation/id-param-validator";
+import * as idValidator from "@shared/http/validation/id-validator";
 import { celebrate, Joi } from "celebrate";
 import { Router } from "express";
 import { ProductsController } from "../controllers/products-controller";
@@ -15,7 +15,7 @@ productsRouter.get("/", productsController.index);
 
 productsRouter.get(
   "/:id",
-  celebrate({ params: idParamValidator }),
+  celebrate({ params: idValidator }),
   productsController.show
 );
 
@@ -27,13 +27,13 @@ productsRouter.post(
 
 productsRouter.put(
   "/:id",
-  celebrate({ body: bodyValidator, params: idParamValidator }),
+  celebrate({ body: bodyValidator, params: idValidator }),
   productsController.update
 );
 
 productsRouter.delete(
   "/:id",
-  celebrate({ params: idParamValidator }),
+  celebrate({ params: idValidator }),
   productsController.delete
 );
 export default productsRouter;
