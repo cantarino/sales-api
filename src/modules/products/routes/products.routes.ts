@@ -1,4 +1,4 @@
-import * as idValidator from "@shared/http/validation/id-validator";
+import idValidator from "@shared/http/validation/id-validator";
 import { celebrate, Joi } from "celebrate";
 import { Router } from "express";
 import { ProductsController } from "../controllers/products-controller";
