@@ -6,7 +6,7 @@ import { ShowProductService } from "../services/show-product-service";
 import { UpdateProductService } from "../services/update-product-service";
 
 export class ProductsController {
-  public async index(_: Request, res: Response) {
+  public async index(_: Request, res: Response): Promise<Response> {
     const listProducts = new ListProductService();
     const products = await listProducts.execute();
 
@@ -52,6 +52,6 @@ export class ProductsController {
     const deleteProduct = new DeleteProductService();
     await deleteProduct.execute({ id });
 
-    return response.json({});
+    return response.json({ message: "Ok" });
   }
 }
