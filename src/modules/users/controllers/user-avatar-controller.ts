@@ -15,12 +15,10 @@ export class UserAvatarController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { user_id, avatar_filename } = request.body;
-
     const updateAvatarService = new UpdateUserAvatarService();
-    const user = updateAvatarService.execute({
-      user_id,
-      avatar_filename,
+    const user = await updateAvatarService.execute({
+      userId: request.user.id,
+      avatarFilename: request.file?.filename,
     });
 
     return response.json(user);

@@ -6,14 +6,16 @@ import { getCustomRepository } from "typeorm";
 import { User } from "../typeorm/entities/user";
 import { UserRepository } from "../typeorm/repositories/users-repository";
 interface IRequest {
-  user_id: string;
-  avatar_filename: string;
+  userId: string;
+  avatarFilename: string | undefined;
 }
 
 export class UpdateUserAvatarService {
-  public async execute({ user_id, avatar_filename }: IRequest): Promise<User> {
+  public async execute({ userId, avatarFilename }: IRequest): Promise<User> {
+    if (!avatarFilename) throw new AppError("PLease provide a filename.");
+
     const usersRepository = getCustomRepository(UserRepository);
-    const user = await usersRepository.findById(user_id);
+    const user = await usersRepository.findById(userId);
 
     if (!user) {
       throw new AppError("User not found.");
@@ -26,7 +28,7 @@ export class UpdateUserAvatarService {
       if (userAvatarFileExists) await fs.promises.unlink(userAvatarFilePath);
     }
 
-    user.avatar = avatar_filename;
+    user.avatar = avatarFilename;
     await usersRepository.save(user);
 
     return user;
