@@ -1,5 +1,5 @@
 {
-  "name": "api-vendas",
+  "name": "sales-api",
   "version": "1.0.0",
   "author": "Christian Cantarino <christian.cantarino@gmail.com>",
   "license": "MIT",
@@ -7,7 +7,6 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/http/server.ts",
     "serve": "node build/shared/http/server.js",
     "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./build",
-    "watch": "tsc -w",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
   "devDependencies": {
