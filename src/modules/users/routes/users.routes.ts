@@ -1,5 +1,6 @@
 import { celebrate, Joi } from "celebrate";
 import { Router } from "express";
+import isAuth from "../../../shared/http/middlewares/is-auth";
 import { UsersController } from "../controllers/users-controller";
 
 const usersRouter = Router();
@@ -10,7 +11,7 @@ const bodyValidator = {
   password: Joi.string().required(),
 };
 
-usersRouter.get("/", usersController.index);
+usersRouter.get("/", isAuth, usersController.index);
 
 usersRouter.post(
   "/",
