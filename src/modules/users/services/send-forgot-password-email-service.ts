@@ -7,7 +7,7 @@ interface IRequest {
   email: string;
 }
 
-export class SendOFrgotPasswordEmailService {
+export class SendForgotPasswordEmailService {
   public async execute({ email }: IRequest): Promise<void> {
     const usersRepository = getCustomRepository(UserRepository);
     const usersTokenRepository = getCustomRepository(UserTokensRepository);
