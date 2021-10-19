@@ -10,10 +10,6 @@ export class UsersController {
     return res.json(users);
   }
 
-  public async show(_: Request, res: Response): Promise<Response> {
-    return res.json({});
-  }
-
   public async create(request: Request, response: Response): Promise<Response> {
     const { name, email, password } = request.body;
     const createUser = new CreateUserService();
@@ -24,13 +20,5 @@ export class UsersController {
     });
 
     return response.json(user);
-  }
-
-  public async update(_: Request, response: Response): Promise<Response> {
-    return response.json({});
-  }
-
-  public async delete(_: Request, response: Response): Promise<Response> {
-    return response.json({});
   }
 }
