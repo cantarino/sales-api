@@ -52,6 +52,6 @@ export class ProductsController {
     const deleteProduct = new DeleteProductService();
     await deleteProduct.execute({ id });
 
-    return response.json({ message: "Ok" });
+    return response.status(204).json();
   }
 }
