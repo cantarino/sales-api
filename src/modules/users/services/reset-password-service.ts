@@ -26,5 +26,6 @@ export class ResetPasswordService {
     if (isAfter(Date.now(), compareDate)) throw new AppError("Expired token");
 
     user.password = await hash(password, 8);
+    await usersRepository.save(user);
   }
 }
