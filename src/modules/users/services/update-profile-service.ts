@@ -1,5 +1,5 @@
 import AppError from "@shared/errors/app-error";
-import { compare } from "bcryptjs";
+import { compare, hash } from "bcryptjs";
 import { getCustomRepository } from "typeorm";
 import { User } from "../typeorm/entities/user";
 import { UserRepository } from "../typeorm/repositories/users-repository";
@@ -26,7 +26,7 @@ export class UpdateProfileService {
     if (!user) throw new AppError("User not found.");
 
     const userWithEmail = await userRepository.findByEmail(email);
-    if (userWithEmail && userWithEmail.id == user_id)
+    if (userWithEmail && userWithEmail.id !== user_id)
       throw new AppError("There is already a user with this mail");
 
     if (password && !old_password)
@@ -39,7 +39,7 @@ export class UpdateProfileService {
         throw new AppError("Old password does not match");
       }
 
-      user.password = password;
+      user.password = await hash(password, 8);
     }
 
     user.name = name;
