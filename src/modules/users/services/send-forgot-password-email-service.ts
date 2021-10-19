@@ -18,7 +18,7 @@ export class SendForgotPasswordEmailService {
       throw new AppError("There is no user with this email");
     }
 
-    const userToken = usersTokenRepository.generate(user.id);
+    const userToken = await usersTokenRepository.generate(user.id);
 
     console.log(userToken);
   }
