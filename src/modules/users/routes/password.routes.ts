@@ -7,13 +7,9 @@ const passwordsRouter = Router();
 const forgotPasswordController = new ForgotPasswordController();
 const resetPasswordController = new ResetPasswordController();
 
-const bodyValidator = {
-  email: Joi.string().email().required(),
-};
-
 passwordsRouter.post(
   "/forgot",
-  celebrate({ body: bodyValidator }),
+  celebrate({ body: { email: Joi.string().email().required() } }),
   forgotPasswordController.create
 );
 
