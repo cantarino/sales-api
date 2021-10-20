@@ -10,5 +10,8 @@ services:
     depends_on:
       - "db"
     build: .
+    env_file:
+      - ormconfig.env
+      - .env
     ports:
       - "8080:8080"

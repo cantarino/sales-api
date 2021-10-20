@@ -8,8 +8,6 @@ WORKDIR /app
 # where available (npm@5+)
 COPY package.json ./
 COPY tsconfig.json ./
-COPY ormconfig.env ./
-COPY .env ./
 
 RUN yarn
 # If you are building your code for production
@@ -21,4 +19,3 @@ ENV NODE_ENV=production
 
 EXPOSE 8080
 CMD [ "node", "build/shared/http/server.js" ]
-USER node
