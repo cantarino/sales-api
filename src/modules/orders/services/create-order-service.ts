@@ -27,7 +27,7 @@ export class CreateOrderService {
     const serializedProducts = products.map((product) => ({
       product_id: product.id,
       quantity: product.quantity,
-      price: dbProducts.find((p) => p.id === product.id)?.price ?? 0,
+      price: dbProducts.filter((p) => p.id === product.id)[0].price,
     }));
     const order = await ordersRepository.createOrder({
       customer,
@@ -38,8 +38,8 @@ export class CreateOrderService {
     const updatedProductQuantity = order_products.map((order_product) => ({
       id: order_product.product_id,
       quantity:
-        dbProducts.find((p) => p.id === order_product.product_id)?.quantity ??
-        0 - order_product.quantity,
+        dbProducts.filter((p) => p.id === order_product.product_id)[0]
+          .quantity - order_product.quantity,
     }));
 
     await productsRepository.save(updatedProductQuantity);
