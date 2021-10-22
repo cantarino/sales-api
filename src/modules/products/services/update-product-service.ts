@@ -1,6 +1,6 @@
 import AppError from "@shared/errors/app-error";
 import { PRODUCT_LIST_KEY } from "@shared/redis/keys";
-import RedisCache from "@shared/redis/redis";
+import redisCache from "@shared/redis/redis";
 import { getCustomRepository } from "typeorm";
 import { Product } from "../typeorm/entities/product";
 import { ProductRepository } from "../typeorm/repositories/products-repository";
@@ -20,7 +20,6 @@ export class UpdateProductService {
     quantity,
   }: IRequest): Promise<Product> {
     const productsRepository = getCustomRepository(ProductRepository);
-    const redisCache = new RedisCache();
 
     let product = await productsRepository.findOne(id);
     if (!product) throw new AppError("Product not found.");
