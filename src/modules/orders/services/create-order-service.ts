@@ -1,5 +1,10 @@
 import AppError from "@shared/errors/app-error";
-import { getCustomRepository } from "typeorm";
+import {
+  getCustomRepository,
+  Transaction,
+  TransactionRepository,
+} from "typeorm";
+import { Customer } from "../../customers/typeorm/entities/customer";
 import { CustomersRepository } from "../../customers/typeorm/repositories/customers-repository";
 import { Product } from "../../products/typeorm/entities/product";
 import { ProductRepository } from "../../products/typeorm/repositories/products-repository";
@@ -22,14 +27,36 @@ export class CreateOrderService {
     const productsRepository = getCustomRepository(ProductRepository);
 
     const customer = await this.findCustomer(customer_id);
-    const dbProducts = await this.findProductsAndCheckAvailability(products);
+    const productsStock = await this.findProductsAndCheckAvailability(products);
 
     const serializedProducts = products.map((product) => ({
       product_id: product.id,
       quantity: product.quantity,
-      price: dbProducts.filter((p) => p.id === product.id)[0].price,
+      price: productsStock.filter((p) => p.id === product.id)[0].price,
     }));
-    const order = await ordersRepository.createOrder({
+    const order = await this.saveOrderAndUpdateStock(
+      customer,
+      serializedProducts,
+      productsStock,
+      ordersRepository,
+      productsRepository
+    );
+    return order;
+  }
+
+  @Transaction()
+  private async saveOrderAndUpdateStock(
+    customer: Customer,
+    serializedProducts: {
+      product_id: string;
+      price: number;
+      quantity: number;
+    }[],
+    productsStock: Product[],
+    @TransactionRepository(Order) orderRepository: OrdersRepository,
+    @TransactionRepository(Product) productRepository: ProductRepository
+  ) {
+    const order = await orderRepository.createOrder({
       customer,
       products: serializedProducts,
     });
@@ -38,11 +65,11 @@ export class CreateOrderService {
     const updatedProductQuantity = order_products.map((order_product) => ({
       id: order_product.product_id,
       quantity:
-        dbProducts.filter((p) => p.id === order_product.product_id)[0]
+        productsStock.filter((p) => p.id === order_product.product_id)[0]
           .quantity - order_product.quantity,
     }));
 
-    await productsRepository.save(updatedProductQuantity);
+    await productRepository.save(updatedProductQuantity);
     return order;
   }
 
