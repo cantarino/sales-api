@@ -2,6 +2,7 @@ import uploadConfig from "@config/upload";
 import "@shared/typeorm";
 import { errors } from "celebrate";
 import cors from "cors";
+import "dotenv/config";
 import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
 import AppError from "../errors/app-error";
