@@ -1,8 +1,8 @@
 import uploadConfig from "@config/upload";
+import isAuth from "@shared/http/middlewares/is-auth";
 import { celebrate, Joi } from "celebrate";
 import { Router } from "express";
 import multer from "multer";
-import isAuth from "../../../shared/http/middlewares/is-auth";
 import { UserAvatarController } from "../controllers/user-avatar-controller";
 import { UsersController } from "../controllers/users-controller";
 
