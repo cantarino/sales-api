@@ -6,8 +6,8 @@ import {
 } from "typeorm";
 import { Customer } from "../../customers/infra/typeorm/entities/Customer";
 import { CustomersRepository } from "../../customers/infra/typeorm/repositories/CustomersRepository";
-import { Product } from "../../products/infra/typeorm/entities/product";
-import { ProductRepository } from "../../products/infra/typeorm/repositories/products-repository";
+import { Product } from "../../products/infra/typeorm/entities/Product";
+import { ProductRepository } from "../../products/infra/typeorm/repositories/ProductsRepository";
 import { Order } from "../typeorm/entities/order";
 import { OrdersRepository } from "../typeorm/repositories/orders-repository";
 

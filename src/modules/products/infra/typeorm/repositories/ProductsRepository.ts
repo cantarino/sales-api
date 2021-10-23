@@ -2,7 +2,7 @@ import { EntityRepository, getRepository, In, Repository } from "typeorm";
 import { ICreateProduct } from "../../../domain/models/ICreateProduct";
 import { IShowProduct } from "../../../domain/models/IShowProduct";
 import { IProductRepository } from "../../../domain/repositories/IProductRepository";
-import { Product } from "../entities/product";
+import { Product } from "../entities/Product";
 
 @EntityRepository(Product)
 export class ProductRepository implements IProductRepository {

@@ -1,8 +1,8 @@
 import { PRODUCT_LIST_KEY } from "@shared/redis/keys";
 import redisCache from "@shared/redis/redis";
 import { getCustomRepository } from "typeorm";
-import { Product } from "../infra/typeorm/entities/product";
-import { ProductRepository } from "../infra/typeorm/repositories/products-repository";
+import { Product } from "../infra/typeorm/entities/Product";
+import { ProductRepository } from "../infra/typeorm/repositories/ProductsRepository";
 export class ListProductService {
   public async execute(): Promise<Product[]> {
     const productsRepository = getCustomRepository(ProductRepository);
