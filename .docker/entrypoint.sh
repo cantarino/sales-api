@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Prd
-yarn migrate-js
-yarn serve
+#yarn migrate
+#yarn serve
 
 # Dev
-#yarn typeorm migration:run
-#yarn dev
+yarn typeorm migration:run
+yarn dev
