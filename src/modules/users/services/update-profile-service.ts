@@ -1,31 +1,27 @@
 import AppError from "@shared/errors/app-error";
 import { compare, hash } from "bcryptjs";
-import { getCustomRepository } from "typeorm";
+import { inject, injectable } from "tsyringe";
+import { IUpdateUser } from "../domain/entities/IUpdateUser";
+import { IUsersRepository } from "../domain/repositories/IUsersRepository";
 import { User } from "../infra/typeorm/entities/User";
-import { UserRepository } from "../infra/typeorm/repositories/UsersRepository";
 
-interface IRequest {
-  user_id: string;
-  name: string;
-  email: string;
-  password?: string;
-  old_password?: string;
-}
-
+@injectable()
 export class UpdateProfileService {
+  constructor(
+    @inject("UsersRepository")
+    private usersRepository: IUsersRepository
+  ) {}
   public async execute({
     user_id,
     email,
     password,
     old_password,
     name,
-  }: IRequest): Promise<User> {
-    const userRepository = getCustomRepository(UserRepository);
-
-    const user = await userRepository.findById(user_id);
+  }: IUpdateUser): Promise<User> {
+    const user = await this.usersRepository.findById(user_id);
     if (!user) throw new AppError("User not found.");
 
-    const userWithEmail = await userRepository.findByEmail(email);
+    const userWithEmail = await this.usersRepository.findByEmail(email);
     if (userWithEmail && userWithEmail.id !== user_id)
       throw new AppError("There is already a user with this mail");
 
@@ -34,17 +30,14 @@ export class UpdateProfileService {
 
     if (password && old_password) {
       const checkPassword = await compare(old_password, user.password);
-
-      if (!checkPassword) {
-        throw new AppError("Old password does not match");
-      }
+      if (!checkPassword) throw new AppError("Old password does not match");
 
       user.password = await hash(password, 8);
     }
 
     user.name = name;
     user.email = email;
-    await userRepository.save(user);
+    await this.usersRepository.save(user);
 
     return user;
   }

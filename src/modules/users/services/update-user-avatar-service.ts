@@ -2,24 +2,25 @@ import uploadConfig from "@config/upload";
 import AppError from "@shared/errors/app-error";
 import fs from "fs";
 import path from "path";
-import { getCustomRepository } from "typeorm";
+import { inject, injectable } from "tsyringe";
+import { IUpdateAvatar } from "../domain/entities/IUpdateAvatar";
+import { IUsersRepository } from "../domain/repositories/IUsersRepository";
 import { User } from "../infra/typeorm/entities/User";
-import { UserRepository } from "../infra/typeorm/repositories/UsersRepository";
-interface IRequest {
-  userId: string;
-  avatarFilename: string | undefined;
-}
 
+@injectable()
 export class UpdateUserAvatarService {
-  public async execute({ userId, avatarFilename }: IRequest): Promise<User> {
-    if (!avatarFilename) throw new AppError("PLease provide a filename.");
+  constructor(
+    @inject("UsersRepository")
+    private usersRepository: IUsersRepository
+  ) {}
+  public async execute({
+    user_id,
+    avatar_filename,
+  }: IUpdateAvatar): Promise<User> {
+    if (!avatar_filename) throw new AppError("Please provide a filename.");
 
-    const usersRepository = getCustomRepository(UserRepository);
-    const user = await usersRepository.findById(userId);
-
-    if (!user) {
-      throw new AppError("User not found.");
-    }
+    const user = await this.usersRepository.findById(user_id);
+    if (!user) throw new AppError("User not found.");
 
     if (user.avatar) {
       const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar);
@@ -28,8 +29,8 @@ export class UpdateUserAvatarService {
       if (userAvatarFileExists) await fs.promises.unlink(userAvatarFilePath);
     }
 
-    user.avatar = avatarFilename;
-    await usersRepository.save(user);
+    user.avatar = avatar_filename;
+    await this.usersRepository.save(user);
 
     return user;
   }

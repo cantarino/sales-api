@@ -2,35 +2,27 @@ import authConfig from "@config/auth";
 import AppError from "@shared/errors/app-error";
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
-import { getCustomRepository } from "typeorm";
-import { User } from "../infra/typeorm/entities/User";
-import { UserRepository } from "../infra/typeorm/repositories/UsersRepository";
+import { inject, injectable } from "tsyringe";
+import { ICreateSession } from "../domain/entities/ICreateSession";
+import { ISession } from "../domain/entities/ISession";
+import { IUsersRepository } from "../domain/repositories/IUsersRepository";
 
-interface IRequest {
-  email: string;
-  password: string;
-}
-
-interface IResponse {
-  user: User;
-  token: string;
-}
-
+@injectable()
 export class CreateSessionService {
-  public async execute({ email, password }: IRequest): Promise<IResponse> {
-    const usersRepository = getCustomRepository(UserRepository);
-    const user = await usersRepository.findByEmail(email);
+  constructor(
+    @inject("UsersRepository")
+    private usersRepository: IUsersRepository
+  ) {}
 
-    if (!user) {
-      throw new AppError("Incorrect email/password combination.", 401);
-    }
+  public async execute({ email, password }: ICreateSession): Promise<ISession> {
+    const user = await this.usersRepository.findByEmail(email);
+    if (!user) throw new AppError("Incorrect email/password combination.", 401);
 
     const passwordConfirmed = await compare(password, user.password);
-
-    if (!passwordConfirmed) {
+    if (!passwordConfirmed)
       throw new AppError("Incorrect email/password combination.", 401);
-    }
 
+    //create service
     const token = sign({}, authConfig.jwt.secret, {
       subject: user.id,
       expiresIn: authConfig.jwt.expiresIn,

@@ -1,25 +1,25 @@
 import AppError from "@shared/errors/app-error";
 import { sendMail } from "@shared/nodemailer/mail";
-import { getCustomRepository } from "typeorm";
-import { UserRepository } from "../infra/typeorm/repositories/UsersRepository";
-import { UserTokensRepository } from "../infra/typeorm/repositories/UserTokensRepository";
-interface IRequest {
-  email: string;
-}
+import { inject, injectable } from "tsyringe";
+import { ICreateUserToken } from "../domain/entities/ICreateUserToken";
+import { IUsersRepository } from "../domain/repositories/IUsersRepository";
+import { IUserTokensRepository } from "../domain/repositories/IUserTokensRepository";
 
+@injectable()
 export class SendForgotPasswordEmailService {
-  public async execute({ email }: IRequest): Promise<void> {
-    const usersRepository = getCustomRepository(UserRepository);
-    const usersTokenRepository = getCustomRepository(UserTokensRepository);
+  constructor(
+    @inject("UsersRepository")
+    private usersRepository: IUsersRepository,
+    @inject("UserTokensRepository")
+    private userTokensRepository: IUserTokensRepository
+  ) {}
+  public async execute({ email }: ICreateUserToken): Promise<void> {
+    const user = await this.usersRepository.findByEmail(email);
+    if (!user) throw new AppError("There is no user with this email");
 
-    const user = await usersRepository.findByEmail(email);
+    const userToken = await this.userTokensRepository.generate(user.id);
 
-    if (!user) {
-      throw new AppError("There is no user with this email");
-    }
-
-    const userToken = await usersTokenRepository.generate(user.id);
-
+    //create service
     await sendMail({
       to: {
         name: user.name,
