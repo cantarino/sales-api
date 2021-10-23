@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { IOrderProduct } from "../../../domain/models/IOrderProduct";
-import { Order } from "./order";
+import { Order } from "./Order";
 
 @Entity("orders_products")
 export class OrderProduct implements IOrderProduct {
