@@ -4,7 +4,7 @@ import fs from "fs";
 import path from "path";
 import { getCustomRepository } from "typeorm";
 import { User } from "../infra/typeorm/entities/User";
-import { UserRepository } from "../infra/typeorm/repositories/users-repository";
+import { UserRepository } from "../infra/typeorm/repositories/UsersRepository";
 interface IRequest {
   userId: string;
   avatarFilename: string | undefined;

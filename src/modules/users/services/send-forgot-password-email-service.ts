@@ -2,7 +2,7 @@ import AppError from "@shared/errors/app-error";
 import { sendMail } from "@shared/nodemailer/mail";
 import { getCustomRepository } from "typeorm";
 import { UserTokensRepository } from "../infra/typeorm/repositories/user-tokens-repository";
-import { UserRepository } from "../infra/typeorm/repositories/users-repository";
+import { UserRepository } from "../infra/typeorm/repositories/UsersRepository";
 interface IRequest {
   email: string;
 }
