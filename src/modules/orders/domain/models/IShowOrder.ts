@@ -1,0 +1,3 @@
+interface IShowOrder {
+  id: string;
+}
