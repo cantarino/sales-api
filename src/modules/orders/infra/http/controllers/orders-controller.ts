@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { CreateOrderService } from "../../../services/create-order-service";
-import { ShowOrderService } from "../../../services/show-order-service";
+import { CreateOrderService } from "../../../services/CreateOrderService";
+import { ShowOrderService } from "../../../services/ShowOrderService";
 
 export class OrdersController {
   public async show(request: Request, response: Response): Promise<Response> {
