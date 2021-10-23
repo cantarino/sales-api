@@ -1,6 +1,6 @@
 import { getCustomRepository } from "typeorm";
-import { Customer } from "../typeorm/entities/customer";
-import { CustomersRepository } from "../typeorm/repositories/customers-repository";
+import { Customer } from "../infra/typeorm/entities/customer";
+import { CustomersRepository } from "../infra/typeorm/repositories/customers-repository";
 
 export class ListCustomerService {
   public async execute(): Promise<Customer[]> {

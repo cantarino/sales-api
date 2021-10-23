@@ -4,8 +4,8 @@ import {
   Transaction,
   TransactionRepository,
 } from "typeorm";
-import { Customer } from "../../customers/typeorm/entities/customer";
-import { CustomersRepository } from "../../customers/typeorm/repositories/customers-repository";
+import { Customer } from "../../customers/infra/typeorm/entities/customer";
+import { CustomersRepository } from "../../customers/infra/typeorm/repositories/customers-repository";
 import { Product } from "../../products/typeorm/entities/product";
 import { ProductRepository } from "../../products/typeorm/repositories/products-repository";
 import { Order } from "../typeorm/entities/order";
