@@ -1,6 +1,6 @@
 import customersRouter from "@modules/customers/infra/http/routes/customers.routes";
 import ordersRouter from "@modules/orders/routes/orders.routes";
-import productsRouter from "@modules/products/routes/products.routes";
+import productsRouter from "@modules/products/infra/http/routes/products.routes";
 import passwordsRouter from "@modules/users/routes/password.routes";
 import profileRouter from "@modules/users/routes/profile.routes";
 import sessionsRouter from "@modules/users/routes/sessions.routes";

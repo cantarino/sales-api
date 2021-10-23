@@ -2,7 +2,7 @@ import AppError from "@shared/errors/app-error";
 import { PRODUCT_LIST_KEY } from "@shared/redis/keys";
 import redisCache from "@shared/redis/redis";
 import { getCustomRepository } from "typeorm";
-import { ProductRepository } from "../typeorm/repositories/products-repository";
+import { ProductRepository } from "../infra/typeorm/repositories/products-repository";
 interface IRequest {
   id: string;
 }
