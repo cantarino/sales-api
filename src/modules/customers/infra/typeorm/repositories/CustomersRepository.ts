@@ -5,7 +5,9 @@ import { Customer } from "../entities/Customer";
 
 @EntityRepository(Customer)
 export class CustomersRepository implements ICustomersRepository {
-  constructor(private ormRepository: Repository<Customer>) {
+  private ormRepository: Repository<Customer>;
+
+  constructor() {
     this.ormRepository = getRepository(Customer);
   }
 
