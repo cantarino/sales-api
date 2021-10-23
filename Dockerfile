@@ -1,7 +1,13 @@
 FROM node:16-alpine
 
 # Create app directory
-WORKDIR /app
+WORKDIR /home/node/app
+
+# Install bash and add scripts to image
+RUN apk add --no-cache bash
+ADD .docker/entrypoint.sh ./
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.9.0/wait /wait
+RUN chmod +x /wait
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
@@ -15,7 +21,6 @@ RUN yarn
 
 COPY /src ./src
 RUN yarn build
-ENV NODE_ENV=production
 
 EXPOSE 8080
-CMD [ "node", "build/shared/http/server.js" ]
+CMD [ "/entrypoint.sh" ]

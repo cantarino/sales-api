@@ -1,17 +1,51 @@
 version: "3"
 services:
-  db:
-    image: postgres
-    environment:
-      POSTGRES_PASSWORD: docker
-    ports:
-      - "5432:5432"
   app:
-    depends_on:
-      - "db"
     build: .
+    container_name: salesapi-app
     env_file:
       - ormconfig.env
       - .env
+    environment:
+      WAIT_HOSTS: db:5432, redis:6379
     ports:
       - "8080:8080"
+    command: sh -c "/wait && ./entrypoint.sh"
+    depends_on:
+      - db
+      - redis
+  db:
+    build: .docker/postgres
+    container_name: salesapi-db
+    restart: always
+    tty: true
+    environment:
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=apivendas
+    ports:
+      - "5432:5432"
+  redis:
+    image: 'bitnami/redis'
+    container_name: salesapi-redis
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "6379:6379"
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: salesapi-pgadmin
+    tty: true
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - '8000:80'
+    depends_on:
+      - db
+  redisinsight:
+    image: 'redislabs/redisinsight'
+    container_name: salesapi-redisinsight
+    ports:
+      - '8001:8001'
+    depends_on:
+      - redis
