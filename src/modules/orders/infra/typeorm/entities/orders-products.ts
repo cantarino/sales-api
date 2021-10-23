@@ -8,10 +8,11 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { IOrderProduct } from "../../../domain/models/IOrderProduct";
 import { Order } from "./order";
 
 @Entity("orders_products")
-export class OrdersProducts {
+export class OrderProduct implements IOrderProduct {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
