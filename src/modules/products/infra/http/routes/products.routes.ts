@@ -1,7 +1,7 @@
 import { idValidator } from "@shared/infra/http/validation/id-validator";
 import { celebrate, Joi } from "celebrate";
 import { Router } from "express";
-import { ProductsController } from "../controllers/products-controller";
+import { ProductsController } from "../controllers/ProductsController";
 
 const productsRouter = Router();
 const productsController = new ProductsController();
