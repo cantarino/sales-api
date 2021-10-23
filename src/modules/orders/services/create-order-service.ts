@@ -5,7 +5,7 @@ import {
   TransactionRepository,
 } from "typeorm";
 import { Customer } from "../../customers/infra/typeorm/entities/Customer";
-import { CustomersRepository } from "../../customers/infra/typeorm/repositories/customers-repository";
+import { CustomersRepository } from "../../customers/infra/typeorm/repositories/CustomersRepository";
 import { Product } from "../../products/typeorm/entities/product";
 import { ProductRepository } from "../../products/typeorm/repositories/products-repository";
 import { Order } from "../typeorm/entities/order";
