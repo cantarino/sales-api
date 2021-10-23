@@ -1,21 +1,15 @@
 import AppError from "@shared/errors/app-error";
-import { getCustomRepository } from "typeorm";
-import { CustomersRepository } from "../infra/typeorm/repositories/CustomersRepository";
-
-interface IRequest {
-  id: string;
-}
+import { IDeleteCustomer } from "../domain/models/IDeleteCustomer";
+import { ICustomersRepository } from "../domain/repositories/ICustomerRepository";
 
 export class DeleteCustomerService {
-  public async execute({ id }: IRequest): Promise<void> {
-    const customersRepository = getCustomRepository(CustomersRepository);
+  constructor(private customersRepository: ICustomersRepository) {}
 
-    const customer = await customersRepository.findById(id);
+  public async execute({ id }: IDeleteCustomer): Promise<void> {
+    const customer = await this.customersRepository.findById(id);
 
-    if (!customer) {
-      throw new AppError("Customer not found.");
-    }
+    if (!customer) throw new AppError("Customer not found.");
 
-    await customersRepository.remove(customer);
+    await this.customersRepository.remove(customer);
   }
 }

@@ -1,12 +1,11 @@
-import { getCustomRepository } from "typeorm";
-import { Customer } from "../infra/typeorm/entities/Customer";
-import { CustomersRepository } from "../infra/typeorm/repositories/CustomersRepository";
+import { ICustomer } from "../domain/models/ICustomer";
+import { ICustomersRepository } from "../domain/repositories/ICustomerRepository";
 
 export class ListCustomerService {
-  public async execute(): Promise<Customer[]> {
-    const customersRepository = getCustomRepository(CustomersRepository);
+  constructor(private customersRepository: ICustomersRepository) {}
 
-    const customers = customersRepository.find();
+  public async execute(): Promise<ICustomer[]> {
+    const customers = await this.customersRepository.findAll();
 
     return customers;
   }
