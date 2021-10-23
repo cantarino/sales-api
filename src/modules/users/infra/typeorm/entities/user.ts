@@ -5,9 +5,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { IUser } from "../../../domain/entities/IUser";
 
 @Entity("users")
-export class User {
+export class User implements IUser {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
