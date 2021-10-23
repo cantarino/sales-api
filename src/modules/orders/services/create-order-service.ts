@@ -7,7 +7,7 @@ import {
 import { Customer } from "../../customers/infra/typeorm/entities/Customer";
 import { CustomersRepository } from "../../customers/infra/typeorm/repositories/CustomersRepository";
 import { Product } from "../../products/infra/typeorm/entities/Product";
-import { ProductRepository } from "../../products/infra/typeorm/repositories/ProductsRepository";
+import { ProductsRepository } from "../../products/infra/typeorm/repositories/ProductsRepository";
 import { Order } from "../typeorm/entities/order";
 import { OrdersRepository } from "../typeorm/repositories/orders-repository";
 
@@ -24,7 +24,7 @@ interface IRequest {
 export class CreateOrderService {
   public async execute({ customer_id, products }: IRequest): Promise<Order> {
     const ordersRepository = getCustomRepository(OrdersRepository);
-    const productsRepository = getCustomRepository(ProductRepository);
+    const productsRepository = getCustomRepository(ProductsRepository);
 
     const customer = await this.findCustomer(customer_id);
     const productsStock = await this.findProductsAndCheckAvailability(products);
@@ -54,7 +54,7 @@ export class CreateOrderService {
     }[],
     productsStock: Product[],
     @TransactionRepository(Order) orderRepository: OrdersRepository,
-    @TransactionRepository(Product) productRepository: ProductRepository
+    @TransactionRepository(Product) productRepository: ProductsRepository
   ) {
     const order = await orderRepository.createOrder({
       customer,
@@ -84,7 +84,7 @@ export class CreateOrderService {
   }
 
   private async findProductsAndCheckAvailability(products: IProduct[]) {
-    const productsRepository = getCustomRepository(ProductRepository);
+    const productsRepository = getCustomRepository(ProductsRepository);
     const existsProducts = await productsRepository.findAllByIds(products);
 
     if (!existsProducts.length) {

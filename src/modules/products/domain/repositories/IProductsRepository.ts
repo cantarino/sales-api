@@ -2,7 +2,7 @@ import { ICreateProduct } from "../models/ICreateProduct";
 import { IProduct } from "../models/IProduct";
 import { IShowProduct } from "../models/IShowProduct";
 
-export interface IProductRepository {
+export interface IProductsRepository {
   findAll(): Promise<IProduct[]>;
   findByName(name: string): Promise<IProduct | undefined>;
   findById(id: string): Promise<IProduct | undefined>;

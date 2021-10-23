@@ -3,13 +3,13 @@ import { PRODUCT_LIST_KEY } from "@shared/redis/keys";
 import redisCache from "@shared/redis/redis";
 import { inject, injectable } from "tsyringe";
 import { IUpdateProduct } from "../domain/models/IUpdateProduct";
-import { IProductRepository } from "../domain/repositories/IProductRepository";
+import { IProductsRepository } from "../domain/repositories/IProductsRepository";
 import { Product } from "../infra/typeorm/entities/Product";
 @injectable()
 export class UpdateProductService {
   constructor(
     @inject("ProductsRepository")
-    private productsRepository: IProductRepository
+    private productsRepository: IProductsRepository
   ) {}
   public async execute({
     id,

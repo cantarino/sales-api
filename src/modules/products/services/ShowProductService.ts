@@ -1,13 +1,13 @@
 import AppError from "@shared/errors/app-error";
 import { inject, injectable } from "tsyringe";
 import { IShowProduct } from "../domain/models/IShowProduct";
-import { IProductRepository } from "../domain/repositories/IProductRepository";
+import { IProductsRepository } from "../domain/repositories/IProductsRepository";
 import { Product } from "../infra/typeorm/entities/Product";
 @injectable()
 export class ShowProductService {
   constructor(
     @inject("ProductsRepository")
-    private productsRepository: IProductRepository
+    private productsRepository: IProductsRepository
   ) {}
 
   public async execute({ id }: IShowProduct): Promise<Product> {

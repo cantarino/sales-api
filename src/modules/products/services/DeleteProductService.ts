@@ -3,12 +3,12 @@ import { PRODUCT_LIST_KEY } from "@shared/redis/keys";
 import redisCache from "@shared/redis/redis";
 import { inject, injectable } from "tsyringe";
 import { IDeleteProduct } from "../domain/models/IDeleteProduct";
-import { IProductRepository } from "../domain/repositories/IProductRepository";
+import { IProductsRepository } from "../domain/repositories/IProductsRepository";
 @injectable()
 export class DeleteProductService {
   constructor(
     @inject("ProductsRepository")
-    private productsRepository: IProductRepository
+    private productsRepository: IProductsRepository
   ) {}
 
   public async execute({ id }: IDeleteProduct): Promise<void> {

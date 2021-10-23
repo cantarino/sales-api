@@ -1,11 +1,11 @@
 import { EntityRepository, getRepository, In, Repository } from "typeorm";
 import { ICreateProduct } from "../../../domain/models/ICreateProduct";
 import { IShowProduct } from "../../../domain/models/IShowProduct";
-import { IProductRepository } from "../../../domain/repositories/IProductRepository";
+import { IProductsRepository } from "../../../domain/repositories/IProductsRepository";
 import { Product } from "../entities/Product";
 
 @EntityRepository(Product)
-export class ProductRepository implements IProductRepository {
+export class ProductsRepository implements IProductsRepository {
   private ormRepository: Repository<Product>;
 
   constructor() {
