@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ResetPasswordService } from "../../../services/reset-password-service";
+import { ResetPasswordService } from "../../../services/ResetPasswordService";
 
 export class ResetPasswordController {
   public async create(request: Request, response: Response): Promise<Response> {
