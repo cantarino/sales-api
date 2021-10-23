@@ -1,11 +1,11 @@
 import uploadConfig from "@config/upload";
-import "@shared/typeorm";
+import "@shared/infra/typeorm";
 import { errors } from "celebrate";
 import cors from "cors";
 import "dotenv/config";
 import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
-import AppError from "../errors/app-error";
+import AppError from "../../errors/app-error";
 import routes from "./routes";
 
 const app = express();

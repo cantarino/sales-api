@@ -1,4 +1,4 @@
-import isAuth from "@shared/http/middlewares/is-auth";
+import isAuth from "@shared/infra/http/middlewares/is-auth";
 import { celebrate, Joi } from "celebrate";
 import { Router } from "express";
 import { ProfileController } from "../controllers/profile-controller";

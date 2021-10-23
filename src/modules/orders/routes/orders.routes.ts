@@ -1,5 +1,5 @@
-import isAuth from "@shared/http/middlewares/is-auth";
-import { idValidator } from "@shared/http/validation/id-validator";
+import isAuth from "@shared/infra/http/middlewares/is-auth";
+import { idValidator } from "@shared/infra/http/validation/id-validator";
 import { celebrate, Joi } from "celebrate";
 import { Router } from "express";
 import { OrdersController } from "../controllers/orders-controller";
