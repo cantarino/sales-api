@@ -1,5 +1,5 @@
 import { getCustomRepository } from "typeorm";
-import { Customer } from "../infra/typeorm/entities/customer";
+import { Customer } from "../infra/typeorm/entities/Customer";
 import { CustomersRepository } from "../infra/typeorm/repositories/customers-repository";
 
 export class ListCustomerService {
