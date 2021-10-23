@@ -1,39 +1,34 @@
 import AppError from "@shared/errors/app-error";
 import { PRODUCT_LIST_KEY } from "@shared/redis/keys";
 import redisCache from "@shared/redis/redis";
-import { getCustomRepository } from "typeorm";
+import { inject, injectable } from "tsyringe";
+import { IUpdateProduct } from "../domain/models/IUpdateProduct";
+import { IProductRepository } from "../domain/repositories/IProductRepository";
 import { Product } from "../infra/typeorm/entities/Product";
-import { ProductRepository } from "../infra/typeorm/repositories/ProductsRepository";
-
-interface IRequest {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-}
-
+@injectable()
 export class UpdateProductService {
+  constructor(
+    @inject("ProductsRepository")
+    private productsRepository: IProductRepository
+  ) {}
   public async execute({
     id,
     name,
     price,
     quantity,
-  }: IRequest): Promise<Product> {
-    const productsRepository = getCustomRepository(ProductRepository);
-
-    let product = await productsRepository.findOne(id);
+  }: IUpdateProduct): Promise<Product> {
+    let product = await this.productsRepository.findById(id);
     if (!product) throw new AppError("Product not found.");
 
-    const productExists = await productsRepository.findByName(name);
-    if (productExists) {
+    const productExists = await this.productsRepository.findByName(name);
+    if (productExists)
       throw new AppError("There is already a product with this name");
-    }
 
     product = { ...product, id, name, price, quantity };
 
     await redisCache.invalidate(PRODUCT_LIST_KEY);
 
-    await productsRepository.save(product);
+    await this.productsRepository.save(product);
     return product;
   }
 }
