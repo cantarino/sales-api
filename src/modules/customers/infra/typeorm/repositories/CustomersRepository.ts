@@ -1,9 +1,8 @@
-import { EntityRepository, getRepository, Repository } from "typeorm";
+import { getRepository, Repository } from "typeorm";
 import { ICreateCustomer } from "../../../domain/models/ICreateCustomer";
 import { ICustomersRepository } from "../../../domain/repositories/ICustomerRepository";
 import { Customer } from "../entities/Customer";
 
-@EntityRepository(Customer)
 export class CustomersRepository implements ICustomersRepository {
   private ormRepository: Repository<Customer>;
 

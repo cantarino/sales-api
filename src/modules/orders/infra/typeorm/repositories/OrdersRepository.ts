@@ -1,9 +1,8 @@
-import { EntityRepository, getRepository, Repository } from "typeorm";
+import { getRepository, Repository } from "typeorm";
 import { IInsertOrder } from "../../../domain/models/IInsertOrder";
 import { IOrdersRepository } from "../../../domain/repositories/IOrdersRepository";
 import { Order } from "../entities/Order";
 
-@EntityRepository(Order)
 export class OrdersRepository implements IOrdersRepository {
   private ormRepository: Repository<Order>;
 
