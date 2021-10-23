@@ -19,6 +19,9 @@ services:
     container_name: salesapi-db
     restart: always
     tty: true
+  # Data binding (for persistance)
+    # volumes:
+    #   - .docker/dbdata:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=docker
       - POSTGRES_DB=apivendas
@@ -31,6 +34,8 @@ services:
       - ALLOW_EMPTY_PASSWORD=yes
     ports:
       - "6379:6379"
+
+# DB interfaces
   pgadmin:
     image: dpage/pgadmin4
     container_name: salesapi-pgadmin
