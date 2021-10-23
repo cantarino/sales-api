@@ -9,7 +9,7 @@ import { CustomersRepository } from "../../customers/infra/typeorm/repositories/
 import { Product } from "../../products/infra/typeorm/entities/Product";
 import { ProductsRepository } from "../../products/infra/typeorm/repositories/ProductsRepository";
 import { Order } from "../infra/typeorm/entities/Order";
-import { OrdersRepository } from "../infra/typeorm/repositories/orders-repository";
+import { OrdersRepository } from "../infra/typeorm/repositories/OrdersRepository";
 
 interface IProduct {
   id: string;
