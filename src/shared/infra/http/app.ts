@@ -1,4 +1,5 @@
 import uploadConfig from "@config/upload";
+import "@shared/container";
 import "@shared/infra/typeorm";
 import { errors } from "celebrate";
 import cors from "cors";

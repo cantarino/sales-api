@@ -1,10 +1,14 @@
 import AppError from "@shared/errors/app-error";
+import { inject, injectable } from "tsyringe";
 import { ICustomer } from "../domain/models/ICustomer";
 import { IUpdateCustomer } from "../domain/models/IUpdateCustomer";
 import { ICustomersRepository } from "../domain/repositories/ICustomerRepository";
-
+@injectable()
 export class UpdateCustomerService {
-  constructor(private customersRepository: ICustomersRepository) {}
+  constructor(
+    @inject("CustomersRepository")
+    private customersRepository: ICustomersRepository
+  ) {}
 
   public async execute({
     id,
