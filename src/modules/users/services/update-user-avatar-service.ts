@@ -3,7 +3,7 @@ import AppError from "@shared/errors/app-error";
 import fs from "fs";
 import path from "path";
 import { getCustomRepository } from "typeorm";
-import { User } from "../infra/typeorm/entities/user";
+import { User } from "../infra/typeorm/entities/User";
 import { UserRepository } from "../infra/typeorm/repositories/users-repository";
 interface IRequest {
   userId: string;
