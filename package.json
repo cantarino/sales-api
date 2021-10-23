@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
-    "serve": "node build/shared/http/server.js",
+    "serve": "node build/shared/infra/http/server.js",
     "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./build",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/.bin/typeorm",
     "migrate": "./node_modules/.bin/typeorm migration:run"
