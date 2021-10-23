@@ -2,7 +2,7 @@ import isAuth from "@shared/infra/http/middlewares/is-auth";
 import { idValidator } from "@shared/infra/http/validation/id-validator";
 import { celebrate, Joi } from "celebrate";
 import { Router } from "express";
-import CustomersController from "../controllers/customer-controller";
+import CustomersController from "../controllers/CustomerController";
 
 const customersRouter = Router();
 const customersController = new CustomersController();
