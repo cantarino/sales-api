@@ -1,6 +1,7 @@
 import { EntityRepository, getRepository, In, Repository } from "typeorm";
 import { ICreateProduct } from "../../../domain/models/ICreateProduct";
 import { IShowProduct } from "../../../domain/models/IShowProduct";
+import { IUpdateProductQuantity } from "../../../domain/models/IUpdateProductQuantity";
 import { IProductsRepository } from "../../../domain/repositories/IProductsRepository";
 import { Product } from "../entities/Product";
 
@@ -65,6 +66,10 @@ export class ProductsRepository implements IProductsRepository {
     await this.ormRepository.save(product);
 
     return product;
+  }
+
+  public async updateStock(products: IUpdateProductQuantity[]): Promise<void> {
+    await this.ormRepository.save(products);
   }
 
   public async remove(product: Product): Promise<void> {
