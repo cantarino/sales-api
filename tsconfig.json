@@ -21,6 +21,14 @@
     "noImplicitAny": true,
     "strictPropertyInitialization": false,
     "skipLibCheck": true,
-    "typeRoots": ["@types", "./node_modules/@types"]
-  }
+    "typeRoots": ["@types", "./node_modules/@types"],
+    
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "./src/**/*.tsx",
+    "./src/**/*.ts"
+  ]
 }
