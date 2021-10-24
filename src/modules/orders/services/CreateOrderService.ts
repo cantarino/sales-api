@@ -1,7 +1,8 @@
 import AppError from "@shared/errors/app-error";
+import redisCache from "@shared/redis/redis";
 import { inject, injectable } from "tsyringe";
+import { PRODUCT_LIST_KEY } from "../../../shared/redis/keys";
 import { ICustomersRepository } from "../../customers/domain/repositories/ICustomerRepository";
-import { Customer } from "../../customers/infra/typeorm/entities/Customer";
 import { IUpdateProductQuantity } from "../../products/domain/models/IUpdateProductQuantity";
 import { IProductsRepository } from "../../products/domain/repositories/IProductsRepository";
 import { Product } from "../../products/infra/typeorm/entities/Product";
@@ -25,44 +26,19 @@ export class CreateOrderService {
   }: ICreateOrder): Promise<Order> {
     const customer = await this.findCustomer(customer_id);
     const productsStock = await this.findProductsAndCheckAvailability(products);
-
     const serializedProducts = products.map((product) => ({
       product_id: product.id,
       quantity: product.quantity,
       price: productsStock.filter((p) => p.id === product.id)[0].price,
     }));
-    const order = await this.saveOrderAndUpdateStock(
-      customer,
-      serializedProducts,
-      productsStock
-    );
-    return order;
-  }
 
-  private async saveOrderAndUpdateStock(
-    customer: Customer,
-    serializedProducts: {
-      product_id: string;
-      price: number;
-      quantity: number;
-    }[],
-    productsStock: Product[]
-  ) {
-    //check transaction
-    const order = await this.ordersRepository.createOrder({
+    const order = await this.ordersRepository.createOrderAndUpdateStock({
       customer,
       products: serializedProducts,
+      productsStock,
     });
+    await redisCache.invalidate(PRODUCT_LIST_KEY);
 
-    const { order_products } = order;
-    const updatedProductQuantity = order_products.map((order_product) => ({
-      id: order_product.product_id,
-      quantity:
-        productsStock.filter((p) => p.id === order_product.product_id)[0]
-          .quantity - order_product.quantity,
-    }));
-
-    await this.productsRepository.updateStock(updatedProductQuantity);
     return order;
   }
 

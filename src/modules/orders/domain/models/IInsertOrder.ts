@@ -1,12 +1,19 @@
 import { ICustomer } from "../../../customers/domain/models/ICustomer";
 
-interface IProduct {
+interface IOrderProduct {
   product_id: string;
   price: number;
   quantity: number;
 }
 
+interface IProduct {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
 export interface IInsertOrder {
   customer: ICustomer;
-  products: IProduct[];
+  products: IOrderProduct[];
+  productsStock: IProduct[];
 }
