@@ -1,19 +1,17 @@
+import { pathsToModuleNameMapper } from "ts-jest/utils";
+import { compilerOptions } from "./tsconfig.json";
+
 export default {
   clearMocks: true,
-
   collectCoverage: true,
-
-  coverageDirectory: "coverage",
-
+  collectCoverageFrom: ["src/**"],
+  coverageDirectory: "__tests__/coverage",
   coverageProvider: "v8",
-
   coverageReporters: ["text-summary", "lcov"],
-
-  // moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
-  //   prefix: "<rootDir>/",
-  // }),
-
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
+    prefix: "<rootDir>/",
+  }),
   preset: "ts-jest",
-
-  testMatch: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[tj]s?(x)"],
+  testEnvironment: "node",
+  testMatch: ["**/__tests__/**/*.test.ts"],
 };
