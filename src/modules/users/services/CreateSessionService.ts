@@ -1,7 +1,6 @@
-import authConfig from "@config/auth";
 import AppError from "@shared/errors/app-error";
+import { createToken } from "@shared/jsonwebtoken/jwt";
 import { compare } from "bcryptjs";
-import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 import { ICreateSession } from "../domain/entities/ICreateSession";
 import { ISession } from "../domain/entities/ISession";
@@ -22,11 +21,7 @@ export class CreateSessionService {
     if (!passwordConfirmed)
       throw new AppError("Incorrect email/password combination.", 401);
 
-    //create service
-    const token = sign({}, authConfig.jwt.secret, {
-      subject: user.id,
-      expiresIn: authConfig.jwt.expiresIn,
-    });
+    const token = createToken(user.id);
 
     return { user, token };
   }
