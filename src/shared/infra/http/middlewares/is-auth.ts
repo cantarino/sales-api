@@ -1,6 +1,6 @@
 import AppError from "@shared/errors/app-error";
 import { NextFunction, Request, Response } from "express";
-import { getTokenPayload } from "../../../jsonwebtoken/jwt";
+import { getTokenPayload } from "../../../providers/TokenProvider/implementations/JWTTokenProvider";
 
 export default function isAuth(
   request: Request,

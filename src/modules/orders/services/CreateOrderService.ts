@@ -1,7 +1,7 @@
 import AppError from "@shared/errors/app-error";
 import redisCache from "@shared/redis/redis";
 import { inject, injectable } from "tsyringe";
-import { PRODUCT_LIST_KEY } from "../../../shared/redis/keys";
+import { PRODUCT_LIST_KEY } from "../../../shared/providers/CacheProvider/implementations/RedisKeys";
 import { ICustomersRepository } from "../../customers/domain/repositories/ICustomerRepository";
 import { IUpdateProductQuantity } from "../../products/domain/models/IUpdateProductQuantity";
 import { IProductsRepository } from "../../products/domain/repositories/IProductsRepository";

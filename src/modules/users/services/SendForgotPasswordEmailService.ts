@@ -1,5 +1,5 @@
 import AppError from "@shared/errors/app-error";
-import { sendMail } from "@shared/nodemailer/mail";
+import { sendMail } from "@shared/providers/MailProvider/implementations/NodemailerMailProvider";
 import { inject, injectable } from "tsyringe";
 import { ICreateUserToken } from "../domain/entities/ICreateUserToken";
 import { IUsersRepository } from "../domain/repositories/IUsersRepository";

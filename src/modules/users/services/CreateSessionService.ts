@@ -1,5 +1,5 @@
 import AppError from "@shared/errors/app-error";
-import { createToken } from "@shared/jsonwebtoken/jwt";
+import { createToken } from "@shared/providers/TokenProvider/implementations/JWTTokenProvider";
 import { compare } from "bcryptjs";
 import { inject, injectable } from "tsyringe";
 import { ICreateSession } from "../domain/entities/ICreateSession";

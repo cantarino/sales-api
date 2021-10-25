@@ -1,4 +1,4 @@
-import { PRODUCT_LIST_KEY } from "@shared/redis/keys";
+import { PRODUCT_LIST_KEY } from "@shared/providers/CacheProvider/implementations/RedisKeys";
 import redisCache from "@shared/redis/redis";
 import { inject, injectable } from "tsyringe";
 import { IProductsRepository } from "../domain/repositories/IProductsRepository";
