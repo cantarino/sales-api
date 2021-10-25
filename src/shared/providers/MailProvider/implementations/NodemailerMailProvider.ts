@@ -1,18 +1,16 @@
 import mailConfig from "@config/mail";
 import nodemailer from "nodemailer";
+import { IMailProvider } from "../models/IMailProvider";
+import { ISendMail } from "../models/ISendMail";
 
-interface IMailContact {
-  name: string;
-  email: string;
+export class NodemailerMailProvider implements IMailProvider {
+  public async sendMail({
+    to,
+    subject,
+    html,
+    from,
+  }: ISendMail): Promise<void> {}
 }
-
-interface ISendMail {
-  to: IMailContact;
-  subject: string;
-  html: string;
-  from?: IMailContact;
-}
-
 export async function sendMail({ to, subject, html, from }: ISendMail) {
   const transporter = nodemailer.createTransport(mailConfig.mail);
   const message = await transporter.sendMail({
