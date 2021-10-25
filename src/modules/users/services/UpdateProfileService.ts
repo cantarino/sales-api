@@ -1,5 +1,5 @@
 import AppError from "@shared/errors/app-error";
-import { compare, hash } from "bcryptjs";
+import { IHashProvider } from "@shared/providers/HashProvider/models/IHashProvider";
 import { inject, injectable } from "tsyringe";
 import { IUpdateUser } from "../domain/entities/IUpdateUser";
 import { IUsersRepository } from "../domain/repositories/IUsersRepository";
@@ -9,7 +9,9 @@ import { User } from "../infra/typeorm/entities/User";
 export class UpdateProfileService {
   constructor(
     @inject("UsersRepository")
-    private usersRepository: IUsersRepository
+    private usersRepository: IUsersRepository,
+    @inject("HashProvider")
+    private hashProvider: IHashProvider
   ) {}
   public async execute({
     user_id,
@@ -29,10 +31,13 @@ export class UpdateProfileService {
       throw new AppError("Old password is required");
 
     if (password && old_password) {
-      const checkPassword = await compare(old_password, user.password);
+      const checkPassword = await this.hashProvider.compareHash(
+        old_password,
+        user.password
+      );
       if (!checkPassword) throw new AppError("Old password does not match");
 
-      user.password = await hash(password, 8);
+      user.password = await this.hashProvider.generateHash(password);
     }
 
     user.name = name;
