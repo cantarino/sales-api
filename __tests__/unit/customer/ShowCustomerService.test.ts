@@ -15,12 +15,10 @@ describe("ShowCustomer", () => {
   });
   test("should be able to find a customer", async () => {
     const customer = await factory.attrs<Customer>("Customer");
-    const { id } = await fakeCustomersRepository.create(customer);
-    const queriedCustomer = await showCustumer.execute({ id });
+    const dbCustomer = await fakeCustomersRepository.create(customer);
+    const queriedCustomer = await showCustumer.execute({ id: dbCustomer.id });
 
-    expect(queriedCustomer.id).toBe(id);
-    expect(queriedCustomer.name).toBe(customer.name);
-    expect(queriedCustomer.email).toBe(customer.email);
+    expect(queriedCustomer).toEqual(dbCustomer);
   });
   test("should not be able to find a customer with invalid id", async () => {
     const customer = await factory.attrs<Customer>("Customer");
