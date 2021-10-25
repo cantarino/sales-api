@@ -1,10 +1,15 @@
 import authConfig from "@config/auth";
 import { sign, verify } from "jsonwebtoken";
+import { ITokenPayload } from "../models/ITokenPayload";
+import { ITokenProvider } from "../models/ITokenProvider";
 
-interface ITokenPayload {
-  iat: number;
-  exp: number;
-  sub: string;
+export class JWTTokenProvider implements ITokenProvider {
+  public signToken(user_id: string): string {
+    return "";
+  }
+  public getTokenPayload(token: string): ITokenPayload {
+    return { iat: 0, exp: 0, sub: "" };
+  }
 }
 
 export function createToken(user_id: string) {
