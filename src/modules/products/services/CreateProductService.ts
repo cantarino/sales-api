@@ -1,16 +1,17 @@
 import AppError from "@shared/errors/app-error";
-import { PRODUCT_LIST_KEY } from "@shared/providers/CacheProvider/implementations/RedisKeys";
-import redisCache from "@shared/redis/redis";
 import { inject, injectable } from "tsyringe";
 import { ICreateProduct } from "../domain/models/ICreateProduct";
 import { IProductsRepository } from "../domain/repositories/IProductsRepository";
 import { Product } from "../infra/typeorm/entities/Product";
+import { IProductCacheProvider } from "../providers/ProductCacheProvider/models/IProductCacheProvider";
 
 @injectable()
 export class CreateProductService {
   constructor(
     @inject("ProductsRepository")
-    private productsRepository: IProductsRepository
+    private productsRepository: IProductsRepository,
+    @inject("ProductCacheProvider")
+    private productCacheProvider: IProductCacheProvider
   ) {}
   public async execute({
     name,
@@ -28,7 +29,7 @@ export class CreateProductService {
       quantity,
     });
 
-    await redisCache.invalidate(PRODUCT_LIST_KEY);
+    await this.productCacheProvider.invalidateProducts();
 
     return product;
   }
