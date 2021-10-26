@@ -1,6 +1,6 @@
 import AppError from "@shared/errors/app-error";
 import { IHashProvider } from "@shared/providers/HashProvider/models/IHashProvider";
-import { addHours, isAfter } from "date-fns";
+import { DateUtils } from "@shared/utils/DateUtils";
 import { inject, injectable } from "tsyringe";
 import { IResetPassword } from "../domain/entities/IResetPassword";
 import { IUsersRepository } from "../domain/repositories/IUsersRepository";
@@ -24,9 +24,10 @@ export class ResetPasswordService {
     if (!user) throw new AppError("User doest not exist");
 
     const tokenCreatedAt = userToken.created_at;
-    const compareDate = addHours(tokenCreatedAt, 2);
+    const compareDate = DateUtils.addHours(tokenCreatedAt, 2);
 
-    if (isAfter(Date.now(), compareDate)) throw new AppError("Expired token");
+    if (DateUtils.isAfter(Date.now(), compareDate))
+      throw new AppError("Expired token");
 
     user.password = await this.hashProvider.generateHash(password);
     await this.usersRepository.save(user);
