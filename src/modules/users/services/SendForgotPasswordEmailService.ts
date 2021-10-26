@@ -1,5 +1,5 @@
 import AppError from "@shared/errors/app-error";
-import { sendMail } from "@shared/providers/MailProvider/implementations/NodemailerMailProvider";
+import { IMailProvider } from "@shared/providers/MailProvider/models/IMailProvider";
 import { inject, injectable } from "tsyringe";
 import { ICreateUserToken } from "../domain/entities/ICreateUserToken";
 import { IUsersRepository } from "../domain/repositories/IUsersRepository";
@@ -11,7 +11,9 @@ export class SendForgotPasswordEmailService {
     @inject("UsersRepository")
     private usersRepository: IUsersRepository,
     @inject("UserTokensRepository")
-    private userTokensRepository: IUserTokensRepository
+    private userTokensRepository: IUserTokensRepository,
+    @inject("MailProvider")
+    private mailProvider: IMailProvider
   ) {}
   public async execute({ email }: ICreateUserToken): Promise<void> {
     const user = await this.usersRepository.findByEmail(email);
@@ -19,8 +21,7 @@ export class SendForgotPasswordEmailService {
 
     const userToken = await this.userTokensRepository.generate(user.id);
 
-    //create service
-    await sendMail({
+    await this.mailProvider.sendMail({
       to: {
         name: user.name,
         email,
