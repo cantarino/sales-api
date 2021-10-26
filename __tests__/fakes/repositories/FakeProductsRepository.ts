@@ -1,8 +1,8 @@
-import { ICreateProduct } from "../../src/modules/products/domain/models/ICreateProduct";
-import { IShowProduct } from "../../src/modules/products/domain/models/IShowProduct";
-import { IProductsRepository } from "../../src/modules/products/domain/repositories/IProductsRepository";
-import { Product } from "../../src/modules/products/infra/typeorm/entities/Product";
-import { generateString } from "../utils/utils";
+import { ICreateProduct } from "../../../src/modules/products/domain/models/ICreateProduct";
+import { IShowProduct } from "../../../src/modules/products/domain/models/IShowProduct";
+import { IProductsRepository } from "../../../src/modules/products/domain/repositories/IProductsRepository";
+import { Product } from "../../../src/modules/products/infra/typeorm/entities/Product";
+import { generateString } from "../../utils/utils";
 
 export class FakeProductsRepository implements IProductsRepository {
   private products: Product[] = [];

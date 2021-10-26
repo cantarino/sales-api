@@ -1,4 +1,4 @@
-import { IHashProvider } from "../../src/shared/providers/HashProvider/models/IHashProvider";
+import { IHashProvider } from "../../../src/shared/providers/HashProvider/models/IHashProvider";
 
 export class FakeHashProvider implements IHashProvider {
   public async generateHash(payload: string): Promise<string> {

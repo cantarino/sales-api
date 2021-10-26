@@ -1,7 +1,7 @@
-import { ICreateUser } from "../../src/modules/users/domain/entities/ICreateUser";
-import { IUsersRepository } from "../../src/modules/users/domain/repositories/IUsersRepository";
-import { User } from "../../src/modules/users/infra/typeorm/entities/User";
-import { generateString } from "../utils/utils";
+import { ICreateUser } from "../../../src/modules/users/domain/entities/ICreateUser";
+import { IUsersRepository } from "../../../src/modules/users/domain/repositories/IUsersRepository";
+import { User } from "../../../src/modules/users/infra/typeorm/entities/User";
+import { generateString } from "../../utils/utils";
 
 export class FakeUsersRepository implements IUsersRepository {
   private users: User[] = [];

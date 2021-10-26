@@ -1,7 +1,7 @@
-import { ICreateCustomer } from "../../src/modules/customers/domain/models/ICreateCustomer";
-import { ICustomersRepository } from "../../src/modules/customers/domain/repositories/ICustomerRepository";
-import { Customer } from "../../src/modules/customers/infra/typeorm/entities/Customer";
-import { generateString } from "../utils/utils";
+import { ICreateCustomer } from "../../../src/modules/customers/domain/models/ICreateCustomer";
+import { ICustomersRepository } from "../../../src/modules/customers/domain/repositories/ICustomerRepository";
+import { Customer } from "../../../src/modules/customers/infra/typeorm/entities/Customer";
+import { generateString } from "../../utils/utils";
 
 export class FakeCustomersRepository implements ICustomersRepository {
   private customers: Customer[] = [];

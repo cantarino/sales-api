@@ -1,7 +1,7 @@
-import { IUserTokensRepository } from "../../src/modules/users/domain/repositories/IUserTokensRepository";
-import { UserToken } from "../../src/modules/users/infra/typeorm/entities/UserToken";
-import { DateUtils } from "../../src/shared/utils/DateUtils";
-import { generateString } from "../utils/utils";
+import { IUserTokensRepository } from "../../../src/modules/users/domain/repositories/IUserTokensRepository";
+import { UserToken } from "../../../src/modules/users/infra/typeorm/entities/UserToken";
+import { DateUtils } from "../../../src/shared/utils/DateUtils";
+import { generateString } from "../../utils/utils";
 
 export class FakeUserTokensRepository implements IUserTokensRepository {
   private userTokens: UserToken[] = [];
