@@ -3,7 +3,7 @@ import { User } from "../../../src/modules/users/infra/typeorm/entities/User";
 import { ShowProfileService } from "../../../src/modules/users/services/ShowProfileService";
 import AppError from "../../../src/shared/errors/app-error";
 import factory from "../../factory";
-import { FakeUsersRepository } from "../../fakes/FakeUsersRepository";
+import { FakeUsersRepository } from "../../fakes/repositories/FakeUsersRepository";
 
 let fakeUsersRepository: FakeUsersRepository;
 let showUser: ShowProfileService;

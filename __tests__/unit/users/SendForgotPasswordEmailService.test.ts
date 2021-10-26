@@ -3,9 +3,9 @@ import { User } from "../../../src/modules/users/infra/typeorm/entities/User";
 import { SendForgotPasswordEmailService } from "../../../src/modules/users/services/SendForgotPasswordEmailService";
 import AppError from "../../../src/shared/errors/app-error";
 import factory from "../../factory";
-import { FakeMailProvider } from "../../fakes/FakeMailProvider";
-import { FakeUsersRepository } from "../../fakes/FakeUsersRepository";
-import { FakeUserTokensRepository } from "../../fakes/FakeUserTokensRepository";
+import { FakeMailProvider } from "../../fakes/providers/FakeMailProvider";
+import { FakeUsersRepository } from "../../fakes/repositories/FakeUsersRepository";
+import { FakeUserTokensRepository } from "../../fakes/repositories/FakeUserTokensRepository";
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeUserTokensRepository: FakeUserTokensRepository;

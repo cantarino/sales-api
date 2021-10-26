@@ -3,9 +3,9 @@ import { User } from "../../../src/modules/users/infra/typeorm/entities/User";
 import { ResetPasswordService } from "../../../src/modules/users/services/ResetPasswordService";
 import AppError from "../../../src/shared/errors/app-error";
 import factory from "../../factory";
-import { FakeHashProvider } from "../../fakes/FakeHashProvider";
-import { FakeUsersRepository } from "../../fakes/FakeUsersRepository";
-import { FakeUserTokensRepository } from "../../fakes/FakeUserTokensRepository";
+import { FakeHashProvider } from "../../fakes/providers/FakeHashProvider";
+import { FakeUsersRepository } from "../../fakes/repositories/FakeUsersRepository";
+import { FakeUserTokensRepository } from "../../fakes/repositories/FakeUserTokensRepository";
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeHashProvider: FakeHashProvider;

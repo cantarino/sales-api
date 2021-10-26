@@ -3,9 +3,9 @@ import { User } from "../../../src/modules/users/infra/typeorm/entities/User";
 import { CreateSessionService } from "../../../src/modules/users/services/CreateSessionService";
 import AppError from "../../../src/shared/errors/app-error";
 import factory from "../../factory";
-import { FakeHashProvider } from "../../fakes/FakeHashProvider";
-import { FakeTokenProvider } from "../../fakes/FakeTokenProvider";
-import { FakeUsersRepository } from "../../fakes/FakeUsersRepository";
+import { FakeHashProvider } from "../../fakes/providers/FakeHashProvider";
+import { FakeTokenProvider } from "../../fakes/providers/FakeTokenProvider";
+import { FakeUsersRepository } from "../../fakes/repositories/FakeUsersRepository";
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeHashProvider: FakeHashProvider;

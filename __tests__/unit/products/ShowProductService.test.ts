@@ -3,7 +3,7 @@ import { Product } from "../../../src/modules/products/infra/typeorm/entities/Pr
 import { ShowProductService } from "../../../src/modules/products/services/ShowProductService";
 import AppError from "../../../src/shared/errors/app-error";
 import factory from "../../factory";
-import { FakeProductsRepository } from "../../fakes/FakeProductsRepository";
+import { FakeProductsRepository } from "../../fakes/repositories/FakeProductsRepository";
 
 let fakeProductsRepository: FakeProductsRepository;
 let showProduct: ShowProductService;

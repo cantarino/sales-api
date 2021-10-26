@@ -2,7 +2,7 @@ import "reflect-metadata";
 import { Customer } from "../../../src/modules/customers/infra/typeorm/entities/Customer";
 import { ListCustomerService } from "../../../src/modules/customers/services/ListCustomerService";
 import factory from "../../factory";
-import { FakeCustomersRepository } from "../../fakes/FakeCustomersRepository";
+import { FakeCustomersRepository } from "../../fakes/repositories/FakeCustomersRepository";
 
 let fakeCustomersRepository: FakeCustomersRepository;
 let listCustumer: ListCustomerService;

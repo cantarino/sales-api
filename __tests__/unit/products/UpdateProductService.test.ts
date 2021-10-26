@@ -3,8 +3,8 @@ import { Product } from "../../../src/modules/products/infra/typeorm/entities/Pr
 import { UpdateProductService } from "../../../src/modules/products/services/UpdateProductService";
 import AppError from "../../../src/shared/errors/app-error";
 import factory from "../../factory";
-import { FakeProductCacheProvider } from "../../fakes/FakeProductCacheProvider";
-import { FakeProductsRepository } from "../../fakes/FakeProductsRepository";
+import { FakeProductCacheProvider } from "../../fakes/providers/FakeProductCacheProvider";
+import { FakeProductsRepository } from "../../fakes/repositories/FakeProductsRepository";
 
 let fakeProductsRepository: FakeProductsRepository;
 let fakeProductsCache: FakeProductCacheProvider;

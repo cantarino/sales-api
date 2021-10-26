@@ -3,7 +3,7 @@ import { Customer } from "../../../src/modules/customers/infra/typeorm/entities/
 import { ShowCustomerService } from "../../../src/modules/customers/services/ShowCustomerService";
 import AppError from "../../../src/shared/errors/app-error";
 import factory from "../../factory";
-import { FakeCustomersRepository } from "../../fakes/FakeCustomersRepository";
+import { FakeCustomersRepository } from "../../fakes/repositories/FakeCustomersRepository";
 
 let fakeCustomersRepository: FakeCustomersRepository;
 let showCustumer: ShowCustomerService;

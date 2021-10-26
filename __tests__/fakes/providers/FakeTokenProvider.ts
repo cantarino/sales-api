@@ -1,5 +1,5 @@
-import { ITokenPayload } from "../../src/shared/providers/TokenProvider/models/ITokenPayload";
-import { ITokenProvider } from "../../src/shared/providers/TokenProvider/models/ITokenProvider";
+import { ITokenPayload } from "../../../src/shared/providers/TokenProvider/models/ITokenPayload";
+import { ITokenProvider } from "../../../src/shared/providers/TokenProvider/models/ITokenProvider";
 
 export class FakeTokenProvider implements ITokenProvider {
   signToken(user_id: string): string {
