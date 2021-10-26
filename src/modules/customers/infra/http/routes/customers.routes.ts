@@ -1,4 +1,3 @@
-import isAuth from "@shared/infra/http/middlewares/is-auth";
 import { idValidator } from "@shared/infra/http/validation/id-validator";
 import { celebrate, Joi } from "celebrate";
 import { Router } from "express";
@@ -11,7 +10,7 @@ const bodyValidator = {
   email: Joi.string().email().required(),
 };
 
-customersRouter.use(isAuth);
+//customersRouter.use(isAuth);
 
 customersRouter.get("/", customersController.index);
 customersRouter.get(

@@ -1,11 +1,10 @@
 import AppError from "@shared/errors/app-error";
-import redisCache from "@shared/redis/redis";
 import { inject, injectable } from "tsyringe";
 import { ICustomersRepository } from "../../customers/domain/repositories/ICustomerRepository";
 import { IUpdateProductQuantity } from "../../products/domain/models/IUpdateProductQuantity";
 import { IProductsRepository } from "../../products/domain/repositories/IProductsRepository";
 import { Product } from "../../products/infra/typeorm/entities/Product";
-import { PRODUCT_LIST_KEY } from "../../products/providers/ProductCacheProvider/implementations/ProductRedisKeys";
+import { IProductCacheProvider } from "../../products/providers/ProductCacheProvider/models/IProductCacheProvider";
 import { ICreateOrder } from "../domain/models/ICreateOrder";
 import { IOrdersRepository } from "../domain/repositories/IOrdersRepository";
 import { Order } from "../infra/typeorm/entities/Order";
@@ -18,7 +17,9 @@ export class CreateOrderService {
     @inject("ProductsRepository")
     private productsRepository: IProductsRepository,
     @inject("CustomersRepository")
-    private customersRepository: ICustomersRepository
+    private customersRepository: ICustomersRepository,
+    @inject("ProductCacheProvider")
+    private productCacheProvider: IProductCacheProvider
   ) {}
   public async execute({
     customer_id,
@@ -37,7 +38,7 @@ export class CreateOrderService {
       products: serializedProducts,
       productsStock,
     });
-    await redisCache.invalidate(PRODUCT_LIST_KEY);
+    await this.productCacheProvider.invalidateProducts();
 
     return order;
   }
