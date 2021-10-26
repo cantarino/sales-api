@@ -1,5 +1,6 @@
 import factory from "factory-girl";
 import { Customer } from "../../src/modules/customers/infra/typeorm/entities/Customer";
+import { Order } from "../../src/modules/orders/infra/typeorm/entities/Order";
 import { Product } from "../../src/modules/products/infra/typeorm/entities/Product";
 import { User } from "../../src/modules/users/infra/typeorm/entities/User";
 
@@ -21,6 +22,16 @@ factory.define("User", User, {
   name: factory.sequence("User.name", (n) => `User ${n}`),
   email: factory.sequence("User.email", (n) => `user-${n}@test.com`),
   password: factory.sequence("User.password", (n) => `user-${n}-password`),
+});
+
+factory.define("Order", Order, {
+  customer: {
+    name: factory.sequence("Order.customer.name", (n) => `Customer ${n}`),
+    email: factory.sequence(
+      "Order.customer.email",
+      (n) => `customer.test${n}@test.com`
+    ),
+  },
 });
 
 export default factory;
