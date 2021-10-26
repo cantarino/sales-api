@@ -5,20 +5,17 @@ import { ITokenProvider } from "../models/ITokenProvider";
 
 export class JWTTokenProvider implements ITokenProvider {
   public signToken(user_id: string): string {
-    return "";
+    return sign({}, authConfig.jwt.secret, {
+      subject: user_id,
+      expiresIn: authConfig.jwt.expiresIn,
+    });
   }
   public getTokenPayload(token: string): ITokenPayload {
-    return { iat: 0, exp: 0, sub: "" };
+    return getTokenPayload(token);
   }
 }
 
-export function createToken(user_id: string) {
-  return sign({}, authConfig.jwt.secret, {
-    subject: user_id,
-    expiresIn: authConfig.jwt.expiresIn,
-  });
-}
-
+//Check provider in express
 export function getTokenPayload(token: string) {
   try {
     const decodedToken = verify(token, authConfig.jwt.secret);

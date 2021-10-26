@@ -1,5 +1,5 @@
 export interface ITokenPayload {
-  iat: number;
-  exp: number;
-  sub: string;
+  iat: number | null;
+  exp: number | null;
+  sub: string | null;
 }
